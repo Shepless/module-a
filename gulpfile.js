@@ -5,10 +5,12 @@ var path = require('path'),
     less = require('gulp-less'),
     babel = require('gulp-babel'),
     changed = require('gulp-changed'),
+    rename = require('gulp-rename'),
     insert = require('gulp-insert'),
-    templateCache = require('gulp-angular-templatecache'),
+    ngHtml2Js = require('gulp-ng-html2js'),
     Builder = require('systemjs-builder'),
-    browserSync = require('browser-sync');
+    browserSync = require('browser-sync'),
+    runSequence = require('run-sequence');
 
 gulp.task('clean', function () {
     return gulp.src('./dist', {
@@ -16,32 +18,29 @@ gulp.task('clean', function () {
     }).pipe(clean());
 });
 
-gulp.task('less', ['clean'], function () {
+gulp.task('less', function () {
     return gulp.src('./src/**/*.less')
         .pipe(less())
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('partials', ['less'], function () {
+gulp.task('partials', function () {
     return gulp.src('./src/**/*.html')
-        .pipe(changed('./dist', {
-            extension: '.html'
-        }))
         //.pipe(htmlMin(options.minimize))
-        .pipe(templateCache({
-            root: 'ui-components/',
-            module: 'ui-components-templates',
-            standalone: true
+        .pipe(ngHtml2Js({
+            prefix: 'ui-components/',
+            export: 'commonjs'
         }))
-        .pipe(concat('templates.js'))
+        .pipe(rename({
+            extname: '.js'
+        }))
+        //.pipe(concat('templates.js'))
         .pipe(insert.prepend('import angular from \'angular\';\n'))
-        .pipe(babel({
-            modules: 'system'
-        }))
+        .pipe(babel())
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build', ['partials'], function () {
+gulp.task('scripts', function () {
     return gulp.src('./src/**/*.js')
         .pipe(babel({
             modules: 'system'
@@ -49,22 +48,28 @@ gulp.task('build', ['partials'], function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('compile', ['build'], function (cb) {
-    var builder = new Builder();
+gulp.task('bundle', function (cb) {
+    return runSequence('clean', 'less', 'scripts', 'partials', function () {
+        var builder = new Builder();
 
-    builder.loadConfig('./config.js').then(function () {
-        return builder.buildSFX('dist/_app', './playground/bundle.js', {
-            minify: false,
-            sourceMaps: true
-        }).then(function () {
-            cb();
-        }).catch(function (e) {
-            cb(e);
+        builder.loadConfig('./config.js').then(function () {
+            builder.config({
+                separateCSS: true
+            });
+
+            return builder.buildSFX('dist/_app', './playground/bundle.js', {
+                minify: false,
+                sourceMaps: true
+            }).then(function () {
+                cb();
+            }).catch(function (e) {
+                cb(e);
+            });
         });
     });
 });
 
-gulp.task('serve', ['compile'], function () {
+gulp.task('serve', ['bundle'], function () {
     browserSync({
         server: {
             baseDir: "./playground"
@@ -72,4 +77,4 @@ gulp.task('serve', ['compile'], function () {
     });
 });
 
-gulp.task('default', ['build']);
+gulp.task('default', ['serve']);

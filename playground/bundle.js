@@ -362,6 +362,8 @@
 
 
 
+
+
 System.register("github:angular/bower-angular@1.3.14/angular", [], false, function(__require, __exports, __module) {
   System.get("@@global-helpers").prepareGlobal(__module.id, []);
   (function() {
@@ -10335,7 +10337,43 @@ System.register("github:angular/bower-angular@1.3.14/angular", [], false, functi
 
 
 
-System.register("dist/templates", ["github:angular/bower-angular@1.3.14"], function(_export) {
+System.register("dist/partials/directive-one", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var _interopRequire = function(obj) {
+    return obj && obj.__esModule ? obj["default"] : obj;
+  };
+  var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
+  module.exports = angular.module("ui-components/partials/directive-one.html", []).run(["$templateCache", function($templateCache) {
+    $templateCache.put("ui-components/partials/directive-one.html", "<h1 class=\"directive-one\">Directive One</h1>");
+  }]);
+  global.define = __define;
+  return module.exports;
+});
+
+
+
+System.register("dist/partials/directive-two", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var _interopRequire = function(obj) {
+    return obj && obj.__esModule ? obj["default"] : obj;
+  };
+  var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
+  module.exports = angular.module("ui-components/partials/directive-two.html", []).run(["$templateCache", function($templateCache) {
+    $templateCache.put("ui-components/partials/directive-two.html", "<h1 class=\"directive-two\">Directive Two</h1>");
+  }]);
+  global.define = __define;
+  return module.exports;
+});
+
+
+
+System.register("dist/services/comments", ["github:angular/bower-angular@1.3.14"], function(_export) {
   var angular;
   return {
     setters: [function(_angular) {
@@ -10343,12 +10381,93 @@ System.register("dist/templates", ["github:angular/bower-angular@1.3.14"], funct
     }],
     execute: function() {
       "use strict";
-      angular.module("ui-components-templates", []).run(["$templateCache", function($templateCache) {
-        $templateCache.put("ui-components/partials/directive-one.html", "<h1 class=\"directive-one\">Directive One</h1>");
-        $templateCache.put("ui-components/partials/directive-two.html", "<h1 class=\"directive-two\">Directive Two</h1>");
+      _export("default", angular.module("ui-components-service-one", []).service("CommentsService", ["$http", function($http) {
+        this.get = function() {
+          return $http.get("http://jsonplaceholder.typicode.com/comments").then(function(response) {
+            return response.data;
+          });
+        };
+      }]));
+    }
+  };
+});
+
+
+
+System.register("dist/partials/comments", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var _interopRequire = function(obj) {
+    return obj && obj.__esModule ? obj["default"] : obj;
+  };
+  var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
+  module.exports = angular.module("ui-components/partials/comments.html", []).run(["$templateCache", function($templateCache) {
+    $templateCache.put("ui-components/partials/comments.html", "<ul>\n" + "    <li ng-repeat=\"comment in comments\">\n" + "        <h1>{{::comment.email}}</h1>\n" + "        <p>{{::comment.body}}</p>\n" + "    </li>\n" + "</ul>");
+  }]);
+  global.define = __define;
+  return module.exports;
+});
+
+
+
+System.register("dist/components/users/service", [], function(_export) {
+  return {
+    setters: [],
+    execute: function() {
+      "use strict";
+      _export("default", ["$http", function($http) {
+        this.get = function() {
+          return $http.get("http://jsonplaceholder.typicode.com/users").then(function(response) {
+            return response.data;
+          });
+        };
       }]);
     }
   };
+});
+
+
+
+System.register("dist/components/users/directive", [], function(_export) {
+  return {
+    setters: [],
+    execute: function() {
+      "use strict";
+      _export("default", ["$templateCache", function($templateCache) {
+        return {
+          restrict: "E",
+          replace: true,
+          scope: {},
+          template: $templateCache.get("ui-components/components/users/template.html"),
+          controller: ["$scope", "UsersService", function($scope, UsersService) {
+            UsersService.get().then(function(users) {
+              $scope.users = users;
+            });
+          }]
+        };
+      }]);
+    }
+  };
+});
+
+
+
+System.register("dist/components/users/template", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var _interopRequire = function(obj) {
+    return obj && obj.__esModule ? obj["default"] : obj;
+  };
+  var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
+  module.exports = angular.module("ui-components/components/users/template.html", []).run(["$templateCache", function($templateCache) {
+    $templateCache.put("ui-components/components/users/template.html", "<ul>\n" + "    <li ng-repeat=\"user in users\">\n" + "        <h1>{{::user.email}}</h1>\n" + "        <p>{{::user.body}}</p>\n" + "    </li>\n" + "</ul>");
+  }]);
+  global.define = __define;
+  return module.exports;
 });
 
 
@@ -10364,38 +10483,46 @@ System.register("github:angular/bower-angular@1.3.14", ["github:angular/bower-an
 
 
 
-System.register("dist/directives/directive-one", ["dist/less/directive-one.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
-  var DirectiveOne;
+System.register("dist/directives/directive-one", ["github:angular/bower-angular@1.3.14", "dist/partials/directive-one", "dist/less/directive-one.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
+  var angular,
+      template;
   return {
-    setters: [function(_lessDirectiveOneCss) {}],
+    setters: [function(_angular) {
+      angular = _angular["default"];
+    }, function(_partialsDirectiveOne) {
+      template = _partialsDirectiveOne["default"];
+    }, function(_lessDirectiveOneCss) {}],
     execute: function() {
       "use strict";
-      DirectiveOne = function DirectiveOne($templateCache) {
+      _export("default", angular.module("ui-components-directive-one", [template.name]).directive("directiveOne", ["$templateCache", function($templateCache) {
         return {
           restrict: "E",
           replace: true,
           scope: {},
           template: $templateCache.get("ui-components/partials/directive-one.html"),
           link: function link() {
-            console.log("directive-a");
+            console.log("directive-one");
           }
         };
-      };
-      DirectiveOne.$inject = ["$templateCache"];
-      _export("default", DirectiveOne);
+      }]));
     }
   };
 });
 
 
 
-System.register("dist/directives/directive-two", ["dist/less/directive-two.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
-  var DirectiveTwo;
+System.register("dist/directives/directive-two", ["github:angular/bower-angular@1.3.14", "dist/partials/directive-two", "dist/less/directive-two.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
+  var angular,
+      template;
   return {
-    setters: [function(_lessDirectiveTwoCss) {}],
+    setters: [function(_angular) {
+      angular = _angular["default"];
+    }, function(_partialsDirectiveTwo) {
+      template = _partialsDirectiveTwo["default"];
+    }, function(_lessDirectiveTwoCss) {}],
     execute: function() {
       "use strict";
-      DirectiveTwo = function DirectiveTwo($templateCache) {
+      _export("default", angular.module("ui-components-directive-two", [template.name]).directive("directiveTwo", ["$templateCache", function($templateCache) {
         return {
           restrict: "E",
           replace: true,
@@ -10405,30 +10532,91 @@ System.register("dist/directives/directive-two", ["dist/less/directive-two.css!g
             console.log("directive-two");
           }
         };
-      };
-      DirectiveTwo.$inject = ["$templateCache"];
-      _export("default", DirectiveTwo);
+      }]));
     }
   };
 });
 
 
 
-System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "dist/templates", "dist/directives/directive-one", "dist/directives/directive-two"], function(_export) {
+System.register("dist/directives/comments", ["github:angular/bower-angular@1.3.14", "dist/services/comments", "dist/partials/comments", "dist/less/comments.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
   var angular,
-      directiveOne,
-      directiveTwo;
+      service,
+      template;
   return {
     setters: [function(_angular) {
       angular = _angular["default"];
-    }, function(_templates) {}, function(_directivesDirectiveOne) {
+    }, function(_servicesComments) {
+      service = _servicesComments["default"];
+    }, function(_partialsComments) {
+      template = _partialsComments["default"];
+    }, function(_lessCommentsCss) {}],
+    execute: function() {
+      "use strict";
+      _export("default", angular.module("ui-components-comments", [service.name, template.name]).directive("comments", ["$templateCache", "CommentsService", function($templateCache, CommentsService) {
+        return {
+          restrict: "E",
+          replace: true,
+          scope: {},
+          template: $templateCache.get("ui-components/partials/comments.html"),
+          controller: ["$scope", function($scope) {
+            CommentsService.get().then(function(comments) {
+              $scope.comments = comments;
+            });
+          }]
+        };
+      }]));
+    }
+  };
+});
+
+
+
+System.register("dist/components/users/_app", ["github:angular/bower-angular@1.3.14", "dist/components/users/service", "dist/components/users/directive", "dist/components/users/template", "dist/components/users/style.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
+  var angular,
+      UsersService,
+      UsersDirective,
+      Template;
+  return {
+    setters: [function(_angular) {
+      angular = _angular["default"];
+    }, function(_service) {
+      UsersService = _service["default"];
+    }, function(_directive) {
+      UsersDirective = _directive["default"];
+    }, function(_template) {
+      Template = _template["default"];
+    }, function(_styleCss) {}],
+    execute: function() {
+      "use strict";
+      _export("default", angular.module("Tombola.Core.Users", [Template.name]).service("UsersService", UsersService).directive("users", UsersDirective));
+    }
+  };
+});
+
+
+
+System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "dist/directives/directive-one", "dist/directives/directive-two", "dist/directives/comments", "dist/components/users/_app"], function(_export) {
+  var angular,
+      directiveOne,
+      directiveTwo,
+      comments,
+      usersComponent;
+  return {
+    setters: [function(_angular) {
+      angular = _angular["default"];
+    }, function(_directivesDirectiveOne) {
       directiveOne = _directivesDirectiveOne["default"];
     }, function(_directivesDirectiveTwo) {
       directiveTwo = _directivesDirectiveTwo["default"];
+    }, function(_directivesComments) {
+      comments = _directivesComments["default"];
+    }, function(_componentsUsers_app) {
+      usersComponent = _componentsUsers_app["default"];
     }],
     execute: function() {
       "use strict";
-      _export("default", angular.module("ui-components", ["ui-components-templates"]).directive("directiveOne", directiveOne).directive("directiveTwo", directiveTwo));
+      _export("default", angular.module("ui-components", [directiveOne.name, directiveTwo.name, comments.name, usersComponent.name]));
     }
   };
 });
@@ -10437,8 +10625,8 @@ System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "dist/templ
 
 System.register('dist/less/directive-one.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
 System.register('dist/less/directive-two.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
-(function(c){var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
-(".directive-one{color:#00f}.directive-two{color:red}");
+System.register('dist/less/comments.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
+System.register('dist/components/users/style.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
 (function() {
   var loader = System;
   var hasOwnProperty = loader.global.hasOwnProperty;

@@ -1,11 +1,15 @@
-System.register(["../less/directive-two.css!"], function (_export) {
-    var DirectiveTwo;
+System.register(["angular", "../partials/directive-two", "../less/directive-two.css!"], function (_export) {
+    var angular, template;
     return {
-        setters: [function (_lessDirectiveTwoCss) {}],
+        setters: [function (_angular) {
+            angular = _angular["default"];
+        }, function (_partialsDirectiveTwo) {
+            template = _partialsDirectiveTwo["default"];
+        }, function (_lessDirectiveTwoCss) {}],
         execute: function () {
             "use strict";
 
-            DirectiveTwo = function DirectiveTwo($templateCache) {
+            _export("default", angular.module("ui-components-directive-two", [template.name]).directive("directiveTwo", ["$templateCache", function ($templateCache) {
                 return {
                     restrict: "E",
                     replace: true,
@@ -15,11 +19,7 @@ System.register(["../less/directive-two.css!"], function (_export) {
                         console.log("directive-two");
                     }
                 };
-            };
-
-            DirectiveTwo.$inject = ["$templateCache"];
-
-            _export("default", DirectiveTwo);
+            }]));
         }
     };
 });
