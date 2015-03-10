@@ -1,11 +1,14 @@
-var gulp = require('gulp'),
+var path = require('path'),
+    gulp = require('gulp'),
     clean = require('gulp-clean'),
     concat = require('gulp-concat'),
     less = require('gulp-less'),
     babel = require('gulp-babel'),
     changed = require('gulp-changed'),
     insert = require('gulp-insert'),
-    templateCache = require('gulp-angular-templatecache');
+    templateCache = require('gulp-angular-templatecache'),
+    Builder = require('systemjs-builder'),
+    browserSync = require('browser-sync');
 
 gulp.task('clean', function () {
     return gulp.src('./dist', {
@@ -44,6 +47,29 @@ gulp.task('build', ['partials'], function () {
             modules: 'system'
         }))
         .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('compile', ['build'], function (cb) {
+    var builder = new Builder();
+
+    builder.loadConfig('./config.js').then(function () {
+        return builder.buildSFX('dist/_app', './playground/bundle.js', {
+            minify: false,
+            sourceMaps: true
+        }).then(function () {
+            cb();
+        }).catch(function (e) {
+            cb(e);
+        });
+    });
+});
+
+gulp.task('serve', ['compile'], function () {
+    browserSync({
+        server: {
+            baseDir: "./playground"
+        }
+    });
 });
 
 gulp.task('default', ['build']);

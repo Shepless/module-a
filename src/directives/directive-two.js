@@ -1,4 +1,4 @@
-import '../less/directive-one.css!';
+import '../less/directive-two.css!';
 
 var DirectiveTwo = function ($templateCache) {
     return {

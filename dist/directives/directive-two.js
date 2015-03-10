@@ -1,7 +1,7 @@
-System.register(["../less/directive-one.css!"], function (_export) {
+System.register(["../less/directive-two.css!"], function (_export) {
     var DirectiveTwo;
     return {
-        setters: [function (_lessDirectiveOneCss) {}],
+        setters: [function (_lessDirectiveTwoCss) {}],
         execute: function () {
             "use strict";
 
