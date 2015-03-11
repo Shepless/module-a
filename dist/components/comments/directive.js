@@ -4,17 +4,14 @@ System.register([], function (_export) {
         execute: function () {
             "use strict";
 
-            _export("default", ["$templateCache", "CommentsService", function ($templateCache, CommentsService) {
+            _export("default", ["$templateCache", function ($templateCache) {
                 return {
                     restrict: "E",
                     replace: true,
-                    scope: {},
-                    template: $templateCache.get("ui-components/components/comments/template.html"),
-                    controller: ["$scope", function ($scope) {
-                        CommentsService.get().then(function (comments) {
-                            $scope.comments = comments;
-                        });
-                    }]
+                    scope: {
+                        comments: "="
+                    },
+                    template: $templateCache.get("ui-components/components/comments/template.html")
                 };
             }]);
         }

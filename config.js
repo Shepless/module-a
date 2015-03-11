@@ -10,7 +10,11 @@ System.config({
 System.config({
   "map": {
     "angular": "github:angular/bower-angular@1.3.14",
+    "angular-route": "github:angular/bower-angular-route@1.3.14",
     "css": "github:systemjs/plugin-css@0.1.6",
+    "github:angular/bower-angular-route@1.3.14": {
+      "angular": "github:angular/bower-angular@1.3.14"
+    },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
