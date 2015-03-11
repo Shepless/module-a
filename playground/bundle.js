@@ -10373,45 +10373,6 @@ System.register("dist/partials/directive-two", ["github:angular/bower-angular@1.
 
 
 
-System.register("dist/services/comments", ["github:angular/bower-angular@1.3.14"], function(_export) {
-  var angular;
-  return {
-    setters: [function(_angular) {
-      angular = _angular["default"];
-    }],
-    execute: function() {
-      "use strict";
-      _export("default", angular.module("ui-components-service-one", []).service("CommentsService", ["$http", function($http) {
-        this.get = function() {
-          return $http.get("http://jsonplaceholder.typicode.com/comments").then(function(response) {
-            return response.data;
-          });
-        };
-      }]));
-    }
-  };
-});
-
-
-
-System.register("dist/partials/comments", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var _interopRequire = function(obj) {
-    return obj && obj.__esModule ? obj["default"] : obj;
-  };
-  var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
-  module.exports = angular.module("ui-components/partials/comments.html", []).run(["$templateCache", function($templateCache) {
-    $templateCache.put("ui-components/partials/comments.html", "<ul>\n" + "    <li ng-repeat=\"comment in comments\">\n" + "        <h1>{{::comment.email}}</h1>\n" + "        <p>{{::comment.body}}</p>\n" + "    </li>\n" + "</ul>");
-  }]);
-  global.define = __define;
-  return module.exports;
-});
-
-
-
 System.register("dist/components/users/service", [], function(_export) {
   return {
     setters: [],
@@ -10464,7 +10425,67 @@ System.register("dist/components/users/template", ["github:angular/bower-angular
   };
   var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
   module.exports = angular.module("ui-components/components/users/template.html", []).run(["$templateCache", function($templateCache) {
-    $templateCache.put("ui-components/components/users/template.html", "<ul>\n" + "    <li ng-repeat=\"user in users\">\n" + "        <h1>{{::user.email}}</h1>\n" + "        <p>{{::user.body}}</p>\n" + "    </li>\n" + "</ul>");
+    $templateCache.put("ui-components/components/users/template.html", "<ul class=\"users\">\n" + "    <li ng-repeat=\"user in users\">\n" + "        <h3>{{::user.email}}</h3>\n" + "        <p>{{::user.body}}</p>\n" + "    </li>\n" + "</ul>");
+  }]);
+  global.define = __define;
+  return module.exports;
+});
+
+
+
+System.register("dist/components/comments/service", [], function(_export) {
+  return {
+    setters: [],
+    execute: function() {
+      "use strict";
+      _export("default", ["$http", function($http) {
+        this.get = function() {
+          return $http.get("http://jsonplaceholder.typicode.com/comments").then(function(response) {
+            return response.data;
+          });
+        };
+      }]);
+    }
+  };
+});
+
+
+
+System.register("dist/components/comments/directive", [], function(_export) {
+  return {
+    setters: [],
+    execute: function() {
+      "use strict";
+      _export("default", ["$templateCache", "CommentsService", function($templateCache, CommentsService) {
+        return {
+          restrict: "E",
+          replace: true,
+          scope: {},
+          template: $templateCache.get("ui-components/components/comments/template.html"),
+          controller: ["$scope", function($scope) {
+            CommentsService.get().then(function(comments) {
+              $scope.comments = comments;
+            });
+          }]
+        };
+      }]);
+    }
+  };
+});
+
+
+
+System.register("dist/components/comments/template", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var _interopRequire = function(obj) {
+    return obj && obj.__esModule ? obj["default"] : obj;
+  };
+  var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
+  module.exports = angular.module("ui-components/components/comments/template.html", []).run(["$templateCache", function($templateCache) {
+    $templateCache.put("ui-components/components/comments/template.html", "<ul class=\"comments\">\n" + "    <li ng-repeat=\"comment in comments\">\n" + "        <h3>{{::comment.email}}</h3>\n" + "        <p>{{::comment.body}}</p>\n" + "    </li>\n" + "</ul>");
   }]);
   global.define = __define;
   return module.exports;
@@ -10539,39 +10560,6 @@ System.register("dist/directives/directive-two", ["github:angular/bower-angular@
 
 
 
-System.register("dist/directives/comments", ["github:angular/bower-angular@1.3.14", "dist/services/comments", "dist/partials/comments", "dist/less/comments.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
-  var angular,
-      service,
-      template;
-  return {
-    setters: [function(_angular) {
-      angular = _angular["default"];
-    }, function(_servicesComments) {
-      service = _servicesComments["default"];
-    }, function(_partialsComments) {
-      template = _partialsComments["default"];
-    }, function(_lessCommentsCss) {}],
-    execute: function() {
-      "use strict";
-      _export("default", angular.module("ui-components-comments", [service.name, template.name]).directive("comments", ["$templateCache", "CommentsService", function($templateCache, CommentsService) {
-        return {
-          restrict: "E",
-          replace: true,
-          scope: {},
-          template: $templateCache.get("ui-components/partials/comments.html"),
-          controller: ["$scope", function($scope) {
-            CommentsService.get().then(function(comments) {
-              $scope.comments = comments;
-            });
-          }]
-        };
-      }]));
-    }
-  };
-});
-
-
-
 System.register("dist/components/users/_app", ["github:angular/bower-angular@1.3.14", "dist/components/users/service", "dist/components/users/directive", "dist/components/users/template", "dist/components/users/style.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
   var angular,
       UsersService,
@@ -10596,27 +10584,51 @@ System.register("dist/components/users/_app", ["github:angular/bower-angular@1.3
 
 
 
-System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "dist/directives/directive-one", "dist/directives/directive-two", "dist/directives/comments", "dist/components/users/_app"], function(_export) {
+System.register("dist/components/comments/_app", ["github:angular/bower-angular@1.3.14", "dist/components/comments/service", "dist/components/comments/directive", "dist/components/comments/template", "dist/components/comments/style.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
   var angular,
-      directiveOne,
-      directiveTwo,
-      comments,
-      usersComponent;
+      CommentsService,
+      CommentsDirective,
+      Template;
+  return {
+    setters: [function(_angular) {
+      angular = _angular["default"];
+    }, function(_service) {
+      CommentsService = _service["default"];
+    }, function(_directive) {
+      CommentsDirective = _directive["default"];
+    }, function(_template) {
+      Template = _template["default"];
+    }, function(_styleCss) {}],
+    execute: function() {
+      "use strict";
+      _export("default", angular.module("Tombola.Core.Comments", [Template.name]).service("CommentsService", CommentsService).directive("comments", CommentsDirective));
+    }
+  };
+});
+
+
+
+System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "dist/directives/directive-one", "dist/directives/directive-two", "dist/components/users/_app", "dist/components/comments/_app"], function(_export) {
+  var angular,
+      DirectiveOne,
+      DirectiveTwo,
+      UsersComponent,
+      CommentsComponent;
   return {
     setters: [function(_angular) {
       angular = _angular["default"];
     }, function(_directivesDirectiveOne) {
-      directiveOne = _directivesDirectiveOne["default"];
+      DirectiveOne = _directivesDirectiveOne["default"];
     }, function(_directivesDirectiveTwo) {
-      directiveTwo = _directivesDirectiveTwo["default"];
-    }, function(_directivesComments) {
-      comments = _directivesComments["default"];
+      DirectiveTwo = _directivesDirectiveTwo["default"];
     }, function(_componentsUsers_app) {
-      usersComponent = _componentsUsers_app["default"];
+      UsersComponent = _componentsUsers_app["default"];
+    }, function(_componentsComments_app) {
+      CommentsComponent = _componentsComments_app["default"];
     }],
     execute: function() {
       "use strict";
-      _export("default", angular.module("ui-components", [directiveOne.name, directiveTwo.name, comments.name, usersComponent.name]));
+      _export("default", angular.module("Tombola.Core.UiComponents", [DirectiveOne.name, DirectiveTwo.name, UsersComponent.name, CommentsComponent.name]));
     }
   };
 });
@@ -10625,8 +10637,8 @@ System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "dist/direc
 
 System.register('dist/less/directive-one.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
 System.register('dist/less/directive-two.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
-System.register('dist/less/comments.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
 System.register('dist/components/users/style.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
+System.register('dist/components/comments/style.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
 (function() {
   var loader = System;
   var hasOwnProperty = loader.global.hasOwnProperty;

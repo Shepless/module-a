@@ -1,7 +1,12 @@
 import angular from 'angular';
-import directiveOne from './directives/directive-one';
-import directiveTwo from './directives/directive-two';
-import comments from './directives/comments';
-import usersComponent from './components/users/_app';
+import DirectiveOne from './directives/directive-one';
+import DirectiveTwo from './directives/directive-two';
+import UsersComponent from './components/users/_app';
+import CommentsComponent from './components/comments/_app';
 
-export default angular.module('ui-components', [directiveOne.name, directiveTwo.name, comments.name, usersComponent.name]);
+export default angular.module('Tombola.Core.UiComponents', [
+    DirectiveOne.name,
+    DirectiveTwo.name,
+    UsersComponent.name,
+    CommentsComponent.name
+]);

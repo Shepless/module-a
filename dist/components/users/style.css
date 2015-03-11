@@ -1,4 +1,4 @@
-ul li {
+.users li {
   list-style: none;
   border-bottom: 2px solid red;
 }

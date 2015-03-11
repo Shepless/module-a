@@ -1,0 +1,4 @@
+.comments li {
+  list-style: none;
+  border-bottom: 2px solid blue;
+}

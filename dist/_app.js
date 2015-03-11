@@ -1,21 +1,21 @@
-System.register(["angular", "./directives/directive-one", "./directives/directive-two", "./directives/comments", "./components/users/_app"], function (_export) {
-  var angular, directiveOne, directiveTwo, comments, usersComponent;
-  return {
-    setters: [function (_angular) {
-      angular = _angular["default"];
-    }, function (_directivesDirectiveOne) {
-      directiveOne = _directivesDirectiveOne["default"];
-    }, function (_directivesDirectiveTwo) {
-      directiveTwo = _directivesDirectiveTwo["default"];
-    }, function (_directivesComments) {
-      comments = _directivesComments["default"];
-    }, function (_componentsUsers_app) {
-      usersComponent = _componentsUsers_app["default"];
-    }],
-    execute: function () {
-      "use strict";
+System.register(["angular", "./directives/directive-one", "./directives/directive-two", "./components/users/_app", "./components/comments/_app"], function (_export) {
+    var angular, DirectiveOne, DirectiveTwo, UsersComponent, CommentsComponent;
+    return {
+        setters: [function (_angular) {
+            angular = _angular["default"];
+        }, function (_directivesDirectiveOne) {
+            DirectiveOne = _directivesDirectiveOne["default"];
+        }, function (_directivesDirectiveTwo) {
+            DirectiveTwo = _directivesDirectiveTwo["default"];
+        }, function (_componentsUsers_app) {
+            UsersComponent = _componentsUsers_app["default"];
+        }, function (_componentsComments_app) {
+            CommentsComponent = _componentsComments_app["default"];
+        }],
+        execute: function () {
+            "use strict";
 
-      _export("default", angular.module("ui-components", [directiveOne.name, directiveTwo.name, comments.name, usersComponent.name]));
-    }
-  };
+            _export("default", angular.module("Tombola.Core.UiComponents", [DirectiveOne.name, DirectiveTwo.name, UsersComponent.name, CommentsComponent.name]));
+        }
+    };
 });
