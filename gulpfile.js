@@ -29,12 +29,8 @@ gulp.task('partials', function () {
         //.pipe(htmlMin(options.minimize))
         .pipe(ngHtml2Js({
             prefix: 'ui-components/',
-            export: 'commonjs'
+            template: "module.exports = angular.module('<%= moduleName %>', []).run(['$templateCache', function($templateCache) {\n" + " $templateCache.put('<%= template.url %>',\n '<%= template.prettyEscapedContent %>');\n" + "}]);\n"
         }))
-        .pipe(rename({
-            extname: '.js'
-        }))
-        //.pipe(concat('templates.js'))
         .pipe(insert.prepend('import angular from \'angular\';\n'))
         .pipe(babel())
         .pipe(gulp.dest('./dist'));
@@ -57,9 +53,9 @@ gulp.task('bundle', function (cb) {
                 separateCSS: true
             });
 
-            return builder.buildSFX('dist/_app', './playground/bundle.js', {
+            return builder.buildSFX('_app', 'playground/bundle.js', {
                 minify: false,
-                sourceMaps: true
+                sourceMaps: false
             }).then(function () {
                 cb();
             }).catch(function (e) {

@@ -358,9 +358,7 @@
   System.register(...);
 }); */
 
-('dist/_app', function(System) {
-
-
+('_app', function(System) {
 
 
 
@@ -10335,8 +10333,6 @@ System.register("github:angular/bower-angular@1.3.14/angular", [], false, functi
   return System.get("@@global-helpers").retrieveGlobal(__module.id, "angular");
 });
 
-
-
 System.register("github:angular/bower-angular-route@1.3.14/angular-route", ["github:angular/bower-angular@1.3.14"], false, function(__require, __exports, __module) {
   System.get("@@global-helpers").prepareGlobal(__module.id, ["github:angular/bower-angular@1.3.14"]);
   (function() {
@@ -10638,45 +10634,7 @@ System.register("github:angular/bower-angular-route@1.3.14/angular-route", ["git
   return System.get("@@global-helpers").retrieveGlobal(__module.id, false);
 });
 
-
-
-System.register("dist/partials/directive-one", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var _interopRequire = function(obj) {
-    return obj && obj.__esModule ? obj["default"] : obj;
-  };
-  var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
-  module.exports = angular.module("ui-components/partials/directive-one.html", []).run(["$templateCache", function($templateCache) {
-    $templateCache.put("ui-components/partials/directive-one.html", "<h1 class=\"directive-one\">Directive One</h1>");
-  }]);
-  global.define = __define;
-  return module.exports;
-});
-
-
-
-System.register("dist/partials/directive-two", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var _interopRequire = function(obj) {
-    return obj && obj.__esModule ? obj["default"] : obj;
-  };
-  var angular = _interopRequire(require("github:angular/bower-angular@1.3.14"));
-  module.exports = angular.module("ui-components/partials/directive-two.html", []).run(["$templateCache", function($templateCache) {
-    $templateCache.put("ui-components/partials/directive-two.html", "<h1 class=\"directive-two\">Directive Two</h1>");
-  }]);
-  global.define = __define;
-  return module.exports;
-});
-
-
-
-System.register("dist/components/users/service", [], function(_export) {
+System.register("components/users/service", [], function(_export) {
   return {
     setters: [],
     execute: function() {
@@ -10692,9 +10650,7 @@ System.register("dist/components/users/service", [], function(_export) {
   };
 });
 
-
-
-System.register("dist/components/users/directive", [], function(_export) {
+System.register("components/users/directive", [], function(_export) {
   return {
     setters: [],
     execute: function() {
@@ -10711,9 +10667,7 @@ System.register("dist/components/users/directive", [], function(_export) {
   };
 });
 
-
-
-System.register("dist/components/users/template", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
+System.register("components/users/template", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -10729,9 +10683,7 @@ System.register("dist/components/users/template", ["github:angular/bower-angular
   return module.exports;
 });
 
-
-
-System.register("dist/components/comments/service", [], function(_export) {
+System.register("components/comments/service", [], function(_export) {
   return {
     setters: [],
     execute: function() {
@@ -10747,9 +10699,7 @@ System.register("dist/components/comments/service", [], function(_export) {
   };
 });
 
-
-
-System.register("dist/components/comments/directive", [], function(_export) {
+System.register("components/comments/directive", [], function(_export) {
   return {
     setters: [],
     execute: function() {
@@ -10766,9 +10716,7 @@ System.register("dist/components/comments/directive", [], function(_export) {
   };
 });
 
-
-
-System.register("dist/components/comments/template", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
+System.register("components/comments/template", ["github:angular/bower-angular@1.3.14"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -10784,8 +10732,6 @@ System.register("dist/components/comments/template", ["github:angular/bower-angu
   return module.exports;
 });
 
-
-
 System.register("github:angular/bower-angular@1.3.14", ["github:angular/bower-angular@1.3.14/angular"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
@@ -10794,8 +10740,6 @@ System.register("github:angular/bower-angular@1.3.14", ["github:angular/bower-an
   global.define = __define;
   return module.exports;
 });
-
-
 
 System.register("github:angular/bower-angular-route@1.3.14", ["github:angular/bower-angular-route@1.3.14/angular-route"], true, function(require, exports, module) {
   var global = System.global,
@@ -10806,65 +10750,7 @@ System.register("github:angular/bower-angular-route@1.3.14", ["github:angular/bo
   return module.exports;
 });
 
-
-
-System.register("dist/directives/directive-one", ["github:angular/bower-angular@1.3.14", "dist/partials/directive-one", "dist/less/directive-one.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
-  var angular,
-      template;
-  return {
-    setters: [function(_angular) {
-      angular = _angular["default"];
-    }, function(_partialsDirectiveOne) {
-      template = _partialsDirectiveOne["default"];
-    }, function(_lessDirectiveOneCss) {}],
-    execute: function() {
-      "use strict";
-      _export("default", angular.module("ui-components-directive-one", [template.name]).directive("directiveOne", ["$templateCache", function($templateCache) {
-        return {
-          restrict: "E",
-          replace: true,
-          scope: {},
-          template: $templateCache.get("ui-components/partials/directive-one.html"),
-          link: function link() {
-            console.log("directive-one");
-          }
-        };
-      }]));
-    }
-  };
-});
-
-
-
-System.register("dist/directives/directive-two", ["github:angular/bower-angular@1.3.14", "dist/partials/directive-two", "dist/less/directive-two.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
-  var angular,
-      template;
-  return {
-    setters: [function(_angular) {
-      angular = _angular["default"];
-    }, function(_partialsDirectiveTwo) {
-      template = _partialsDirectiveTwo["default"];
-    }, function(_lessDirectiveTwoCss) {}],
-    execute: function() {
-      "use strict";
-      _export("default", angular.module("ui-components-directive-two", [template.name]).directive("directiveTwo", ["$templateCache", function($templateCache) {
-        return {
-          restrict: "E",
-          replace: true,
-          scope: {},
-          template: $templateCache.get("ui-components/partials/directive-two.html"),
-          link: function link() {
-            console.log("directive-two");
-          }
-        };
-      }]));
-    }
-  };
-});
-
-
-
-System.register("dist/components/users/_app", ["github:angular/bower-angular@1.3.14", "dist/components/users/service", "dist/components/users/directive", "dist/components/users/template", "dist/components/users/style.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
+System.register("components/users/_app", ["github:angular/bower-angular@1.3.14", "components/users/service", "components/users/directive", "components/users/template", "components/users/style.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
   var angular,
       UsersService,
       UsersDirective,
@@ -10886,9 +10772,7 @@ System.register("dist/components/users/_app", ["github:angular/bower-angular@1.3
   };
 });
 
-
-
-System.register("dist/components/comments/_app", ["github:angular/bower-angular@1.3.14", "dist/components/comments/service", "dist/components/comments/directive", "dist/components/comments/template", "dist/components/comments/style.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
+System.register("components/comments/_app", ["github:angular/bower-angular@1.3.14", "components/comments/service", "components/comments/directive", "components/comments/template", "components/comments/style.css!github:systemjs/plugin-css@0.1.6"], function(_export) {
   var angular,
       CommentsService,
       CommentsDirective,
@@ -10910,13 +10794,9 @@ System.register("dist/components/comments/_app", ["github:angular/bower-angular@
   };
 });
 
-
-
-System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "github:angular/bower-angular-route@1.3.14", "dist/directives/directive-one", "dist/directives/directive-two", "dist/components/users/_app", "dist/components/comments/_app"], function(_export) {
+System.register("_app", ["github:angular/bower-angular@1.3.14", "github:angular/bower-angular-route@1.3.14", "components/users/_app", "components/comments/_app"], function(_export) {
   var angular,
       angularRoute,
-      DirectiveOne,
-      DirectiveTwo,
       UsersComponent,
       CommentsComponent;
   return {
@@ -10924,10 +10804,6 @@ System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "github:ang
       angular = _angular["default"];
     }, function(_angularRoute) {
       angularRoute = _angularRoute["default"];
-    }, function(_directivesDirectiveOne) {
-      DirectiveOne = _directivesDirectiveOne["default"];
-    }, function(_directivesDirectiveTwo) {
-      DirectiveTwo = _directivesDirectiveTwo["default"];
     }, function(_componentsUsers_app) {
       UsersComponent = _componentsUsers_app["default"];
     }, function(_componentsComments_app) {
@@ -10935,7 +10811,7 @@ System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "github:ang
     }],
     execute: function() {
       "use strict";
-      _export("default", angular.module("Tombola.Core.UiComponents", ["ngRoute", DirectiveOne.name, DirectiveTwo.name, UsersComponent.name, CommentsComponent.name]).config(["$routeProvider", function($routeProvider) {
+      _export("default", angular.module("Tombola.Core.UiComponents", ["ngRoute", UsersComponent.name, CommentsComponent.name]).config(["$routeProvider", function($routeProvider) {
         $routeProvider.when("/", {
           template: "<div><h1>Users</h1><users users=\"application.users\"></users><h1>Comments</h1><comments comments=\"application.comments\"></comments></div>",
           resolve: {
@@ -10957,12 +10833,8 @@ System.register("dist/_app", ["github:angular/bower-angular@1.3.14", "github:ang
   };
 });
 
-
-
-System.register('dist/less/directive-one.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
-System.register('dist/less/directive-two.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
-System.register('dist/components/users/style.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
-System.register('dist/components/comments/style.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
+System.register('components/users/style.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
+System.register('components/comments/style.css!github:systemjs/plugin-css@0.1.6', [], false, function() {});
 (function() {
   var loader = System;
   var hasOwnProperty = loader.global.hasOwnProperty;
@@ -11030,4 +10902,3 @@ System.register('dist/components/comments/style.css!github:systemjs/plugin-css@0
 })();
 
 });
-//# sourceMappingURL=bundle.js.map
